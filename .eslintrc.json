@@ -1,0 +1,27 @@
+{
+    "env": {
+        "commonjs": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly",
+        "CatchAsyncErrors": "readonly",
+        "CustomError": "readonly",
+        "ValidateParams": "readonly",
+        "ValidateQuery": "readonly",
+        "ValidateBody": "readonly",
+        "empty": "readonly",
+        "SendNotifications": "readonly",
+        "serverConfig": "readonly",
+        "models": "readonly",
+        "RequiredParam": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
+    "rules": {
+    }
+}
