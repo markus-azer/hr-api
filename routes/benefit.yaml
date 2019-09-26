@@ -1,0 +1,189 @@
+tags:
+- name: Benefit
+  description: Operations about Benefit
+
+
+paths:
+  /benefit:
+    get:
+      tags:
+        - Benefit
+      summary: Search a Benefit
+      operationId: searchBenefit
+      parameters:
+      - name: title
+        in: query
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiSuccessful'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - bearerAuth: []
+
+    post:
+      tags:
+        - Benefit
+      summary: create new Benefit
+      operationId: createBenefit
+      requestBody:
+        description: create new Benefit
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createBenefit'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiSuccessful'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - bearerAuth: []
+
+  /benefit/{id}:
+    put:
+      tags:
+        - Benefit
+      summary: update Benefit info
+      operationId: updateBenefit
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: update Benefit info
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateBenefit'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiSuccessful'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - bearerAuth: []
+
+    delete:
+      tags:
+        - Benefit
+      summary: Delete a Benefit
+      operationId: deleteBenefit
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiSuccessful'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - bearerAuth: []
+
+components:
+  schemas:
+    createBenefit:
+      type: object
+      required:
+      - type
+      - title
+      - body
+      properties:
+        type:
+          type: string
+          enum:
+          - Offer
+          - Medical
+          - News
+        title:
+          type: string
+          minLength: 4
+          maxLength: 300
+        body:
+          type: string
+          minLength: 10
+          maxLength: 10000
+      example:
+        type: "Offer"
+        title: "Title goes here"
+        body: "Body goes here"
+
+    updateBenefit:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 4
+          maxLength: 300
+        body:
+          type: string
+          minLength: 10
+          maxLength: 10000
+      example:
+        title: "Title goes here"
+        body: "Body goes here"

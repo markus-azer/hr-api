@@ -1,0 +1,462 @@
+tags:
+- name: User
+  description: Operations about user
+
+paths:
+  /user:
+    get:
+      tags:
+        - User
+      summary: Search a User
+      operationId: searchUser
+      parameters:
+      - name: fullName
+        in: query
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiSuccessful'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - bearerAuth: []
+
+    post:
+      tags:
+        - User
+      summary: SignUp and create new invited User
+      operationId: createUser
+      requestBody:
+        description: SignUp and create new invited User
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createUser'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiSuccessful'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+  /user/{id}:
+    get:
+      tags:
+        - User
+      summary: get a User
+      operationId: getUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiSuccessful'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - bearerAuth: []
+
+    put:
+      tags:
+        - User
+      summary: for HR to update user info
+      operationId: updateUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: for HR to update user info, one of the fields is required
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateUser'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiSuccessful'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - bearerAuth: []
+
+    delete:
+      tags:
+        - User
+      summary: Deactivate a User
+      operationId: deleteUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiSuccessful'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - bearerAuth: []
+
+  /user/signin:
+    post:
+      tags:
+        - User
+      summary: signIn
+      operationId: signInUser
+      requestBody:
+        description: signIn
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/signIn'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiSuccessful'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+  /user/signout:
+    get:
+      tags:
+        - User
+      summary: signOut and restricted the JWT Token
+      operationId: signOutUser
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiSuccessful'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - bearerAuth: []
+
+  /user/invite-user:
+    post:
+      tags:
+        - User
+      summary: For HR to invite new user
+      operationId: inviteUser
+      requestBody:
+        description: Invite new user by generating new token and send email for user to complete signUp,
+          note that Token expires in 12 hours
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/inviteUser'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiSuccessful'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - bearerAuth: []
+
+  /user/profile:
+    get:
+      tags:
+        - User
+      summary: Get User Profile
+      operationId: getProfile
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiSuccessful'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - bearerAuth: []
+
+    put:
+      tags:
+        - User
+      summary: Update User Profile
+      operationId: updateProfile
+      requestBody:
+        description: Update User Profile, one of the fields is required
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/profile'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiSuccessful'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - bearerAuth: []
+
+components:
+  schemas:
+
+    inviteUser:
+      type: object
+      required:
+      - email
+      properties:
+        email:
+          type: string
+      example:
+        email: "example@gmail.com"
+
+    signIn:
+      type: object
+      required:
+      - email
+      - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 6
+          maxLength: 30
+      example:
+        email: "example@gmail.com"
+        password: "123456"
+  
+    createUser:
+      type: object
+      required:
+      - email
+      - password
+      - verifyPassword
+      - fullName
+      - token
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 6
+          maxLength: 30
+        verifyPassword:
+          type: string
+          minLength: 6
+          maxLength: 30
+        fullName:
+          type: string
+          pattern: '^[\u0621-\u064Aa-zA-Z\s]+$'
+          minLength: 3
+          maxLength: 30
+        token:
+          description: token send when HR issue request
+          type: token
+      example:
+        email: "example@gmail.com"
+        password: "123456"
+        verifyPassword: "123456"
+        fullName: "Elon Musk"
+        token: "jkhdfeuhsndslkm"
+
+    profile:
+      type: object
+      properties:
+        fullName:
+          type: string
+          pattern: '^[\u0621-\u064Aa-zA-Z\s]+$'
+          minLength: 3
+          maxLength: 30
+        phoneNumber:
+          type: string
+          pattern: '^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$'
+        birthday:
+          type: string
+          format: date
+        gender:
+          type: string
+          enum:
+            - Male
+            - Female
+      example:
+        fullName: "Mohammed Adel"
+        phoneNumber: "01275673467"
+        birthday: "2017-07-21"
+        gender: "Male"
+
+    updateUser:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Employee
+            - HR Assistant
+        fullName:
+          type: string
+          pattern: '^[\u0621-\u064Aa-zA-Z\s]+$'
+          minLength: 3
+          maxLength: 30
+        phoneNumber:
+          type: string
+          pattern: '^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$'
+        birthday:
+          type: string
+          format: date
+        gender:
+          type: string
+          enum:
+            - Male
+            - Female
+        manager:
+          type: string
+        department:
+          type: string
+      example:
+        type: "Employee"
+        fullName: "Mohammed Adel"
+        phoneNumber: "01275673467"
+        birthday: "2017-07-21"
+        gender: "Male"
+        manager: "Adel"
+        department: "Marketing"

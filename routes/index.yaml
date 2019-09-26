@@ -1,0 +1,27 @@
+components:
+  schemas:
+
+    ApiSuccessful:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int32
+          default: 200
+        message:
+          type: string
+        successful:
+          type: boolean
+          default: true
+
+    ApiError:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int32
+        message:
+          type: string
+        successful:
+          type: boolean
+          default: false
